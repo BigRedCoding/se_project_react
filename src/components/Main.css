@@ -1,0 +1,10 @@
+@font-face {
+  src: url("../assets/roboto-regular.woff") format("woff");
+  font-family: "Roboto";
+}
+
+.container {
+  font-family: "Roboto";
+  display: flex;
+  justify-content: space-around;
+}
