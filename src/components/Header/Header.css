@@ -7,16 +7,34 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 32px 0 28px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
 }
 
 .header__logo {
-  width: 64px;
-  height: 42px;
+  margin-right: 24px;
 }
 
-.header__title {
-  font-family: "Yellowtail", cursive;
-  font-size: 40px;
-  margin-left: 12px;
+.header__date-And-Location {
+  margin: 0;
+}
+
+.header__user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__user-name {
+  margin: 0;
+  line-height: 24.8px;
+}
+
+.header__add-clothes-button {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  margin: 0 20px 0 auto;
+  font-weight: 700;
 }
