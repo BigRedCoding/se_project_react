@@ -14,14 +14,12 @@ export const getWeather = ({ latitude, longitude }, APIkey) => {
             .catch(reject);
         },
         (error) => {
-          console.error("Error getting location:", error);
           getWeather2({ latitude, longitude }, APIkey)
             .then(resolve)
             .catch(reject);
         }
       );
     } else {
-      console.error("Geolocation is not supported by this browser.");
       getWeather2({ latitude, longitude }, APIkey).then(resolve).catch(reject);
     }
   });

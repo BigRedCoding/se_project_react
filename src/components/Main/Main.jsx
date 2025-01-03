@@ -27,6 +27,14 @@ function Main({ weatherData, handleCardClick }) {
             })}
         </ul>
       </section>
+      <button type="button" className="main__randomize-button">
+        <img
+          src="src\assets\RandomizeImage.svg"
+          alt="Randomize Image"
+          className="main__randomize-image"
+        />
+        <p className="main__randomize-text">Randomize</p>
+      </button>
     </main>
   );
 }

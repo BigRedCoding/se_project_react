@@ -1,0 +1,55 @@
+.modal__content_type-image {
+  padding: 0;
+  margin: 0;
+  height: 610px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.modal__close-preview {
+  width: 20px;
+  height: 20px;
+  background-image: url("../../assets/CloseWhite.png");
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.modal__image {
+  padding: 0;
+  margin: 0;
+  max-width: 498px;
+  max-height: 498px;
+  object-fit: contain;
+}
+
+.modal__footer {
+  padding: 20px 32px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.modal__caption {
+  padding: 0;
+  margin: 0;
+}
+.modal__weather {
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 627px) {
+  .modal__content_type-image {
+    width: auto;
+    max-width: 343px;
+    max-height: 463px;
+  }
+  .modal__image {
+    width: 100%;
+    height: 100%;
+    max-width: 343px;
+    max-height: 343px;
+  }
+}

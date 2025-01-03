@@ -18,6 +18,7 @@
 }
 
 .modal__content {
+  border-radius: 20px;
   padding: 28px 28px 36px;
   position: relative;
   background-color: white;
@@ -32,6 +33,11 @@
 }
 
 .modal__close {
+  background-image: url("../../assets/CloseGray.svg");
+  background-size: contain;
+  border: none;
+  width: 16px;
+  height: 16px;
   position: absolute;
   top: 20px;
   right: 28px;
@@ -49,9 +55,12 @@
 }
 
 .modal__input {
+  padding: 8px 0 0;
+  height: 24px;
   display: block;
   width: 100%;
-  border-style: bottom;
+  outline: 0;
+  border-width: 0 0 1px;
   border-bottom: 1px solid rgb(0, 0, 0);
 }
 
@@ -65,4 +74,55 @@
 
 .modal__radio-legend {
   padding-bottom: 12px;
+}
+
+.modal__label_type_radio {
+  accent-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__radio-input {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__radio-text {
+  padding: 0 0 0 8px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__submit {
+  width: 124px;
+  height: 36px;
+  background-color: #000000;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.modal__radio-input:checked + .modal__radio-text {
+  color: rgba(0, 0, 0, 1);
+}
+
+.modal__submit:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal__submit:disabled {
+  background-color: #0000004d;
+}
+
+.modal__submit:disabled:hover {
+  background-color: #0000004d;
+}
+
+@media screen and (max-width: 627px) {
+  .modal {
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .modal__content_form {
+    position: fixed;
+    bottom: 0;
+  }
 }
