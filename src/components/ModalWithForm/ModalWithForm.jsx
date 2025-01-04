@@ -12,6 +12,7 @@ function ModalWithForm({
   text1,
   text2,
   url,
+  isOpened,
 }) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -27,17 +28,16 @@ function ModalWithForm({
       alert("Form Submitted Successfully!");
     }
   };
+
   return (
-    <div
-      className={`modal ${activeModal === "add-garment" && "modal__opened"}`}
-    >
+    <div className={`modal ${isOpened}`}>
       <div className="modal__content modal__content_form">
         <h2 className="modal__title">{title}</h2>
         <button
           onClick={handleCloseClick}
           type="button"
           className="modal__close"
-        ></button>
+        />
         <form className="modal__form" name="name" onSubmit={handleSubmit}>
           {children}
           <button

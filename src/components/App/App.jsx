@@ -20,7 +20,7 @@ function App() {
   const [selectedCard, setSelectCard] = useState({});
 
   const handleAddClick = () => {
-    setActiveModal("add-garment");
+    setActiveModal("garment");
   };
 
   const closeActiveModal = () => {
@@ -58,10 +58,7 @@ function App() {
 
         setWeatherData(filteredData);
       })
-      .catch((error) => {
-        setWeatherData;
-        console.error();
-      });
+      .catch(console.error);
   }, []);
 
   return (
@@ -81,6 +78,7 @@ function App() {
         text1={text1}
         text2={text2}
         url={url}
+        isOpened={activeModal === "garment" && "modal_opened"}
       >
         <label htmlFor="name" className="modal__label">
           Name{" "}
@@ -158,6 +156,7 @@ function App() {
         activeModal={activeModal}
         selectedCard={selectedCard}
         handleCloseClick={closeActiveModal}
+        isOpened={activeModal === "preview" && "modal_opened"}
       />
     </div>
   );

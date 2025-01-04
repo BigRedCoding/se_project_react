@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import "./header.css";
+import "./Header.css";
 import logoHeader from "../../assets/logo.svg";
 import avatarHeader from "../../assets/avatar.svg";
 
@@ -13,7 +13,7 @@ function Header({ handleAddClick, weatherData }) {
   const [activeContainer, setActiveContainer] = useState("");
 
   const handleAddPanel = () => {
-    setActiveContainer("user-container modal__opened");
+    setActiveContainer("user-container modal_opened");
   };
   const handleClosePanel = () => {
     setActiveContainer("");
