@@ -1,0 +1,54 @@
+.profile {
+  display: flex;
+}
+.profile__sidebar {
+  min-height: 100%;
+  min-width: 229px;
+  width: fit-content;
+}
+.profile__clothes-items {
+  margin: 0 0 0 auto;
+  width: 1015px;
+}
+.profile__header-bar {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  border-top: 1 solid #0000004d;
+}
+
+@media screen and (max-width: 1299px) {
+  .profile__clothes-items {
+    width: fit-content;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .profile__clothes-items > .clothes > .card {
+    max-width: 164px;
+    max-height: 164px;
+    width: 164px;
+    height: 164px;
+  }
+}
+
+@media screen and (max-width: 582px) {
+  .profile {
+    flex-direction: column;
+  }
+  .profile__sidebar {
+    position: absolute;
+    visibility: hidden;
+    width: 0;
+    max-width: 0;
+  }
+  .profile__header-bar {
+    visibility: visible;
+    height: fit-content;
+    width: 100%;
+    border-top: 1 solid #0000004d;
+    padding: 20px 0;
+  }
+}

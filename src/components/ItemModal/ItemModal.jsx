@@ -1,13 +1,25 @@
 import "./ItemModal.css";
 
-function ItemModal({ activeModal, handleCloseClick, selectedCard, isOpened }) {
+function ItemModal({
+  onCloseClick,
+  selectedCard,
+  isOpened,
+  onDeleteClick,
+  onSelectCard,
+}) {
+  const triggerDelete = () => {
+    isOpened = false;
+    onSelectCard(selectedCard);
+    onDeleteClick();
+  };
+
   return (
     <div className={`modal ${isOpened}`}>
       <div className="modal__content modal__content_type-image">
         <button
-          onClick={handleCloseClick}
+          onClick={onCloseClick}
           type="button"
-          className="modal__close modal__close-preview"
+          className="modal__close-preview"
         ></button>
         <img
           src={selectedCard.link}
@@ -17,6 +29,9 @@ function ItemModal({ activeModal, handleCloseClick, selectedCard, isOpened }) {
         <div className="modal__footer">
           <p className="modal__caption">{selectedCard.name}</p>
           <p className="modal__weather">Weather: {selectedCard.weather}</p>
+          <button className="modal__delete-item-button" onClick={triggerDelete}>
+            Delete Item
+          </button>
         </div>
       </div>
     </div>

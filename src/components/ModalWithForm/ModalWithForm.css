@@ -19,12 +19,17 @@
 
 .modal__content {
   border-radius: 20px;
-  padding: 28px 28px 36px;
+  padding: 0;
+  margin: 0;
   position: relative;
   background-color: white;
   max-width: 496px;
   box-sizing: border-box;
   width: 100%;
+}
+
+.modal__content_form {
+  padding: 28px 28px 36px;
 }
 
 .modal__title {

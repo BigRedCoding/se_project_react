@@ -5,8 +5,9 @@ import logoHeader from "../../assets/logo.svg";
 import avatarHeader from "../../assets/avatar.svg";
 
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch.jsx";
+import { Link } from "react-router-dom";
 
-function Header({ handleAddClick, weatherData, handleToggleSwitchChange }) {
+function Header({ onAddClick, weatherData }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -23,7 +24,9 @@ function Header({ handleAddClick, weatherData, handleToggleSwitchChange }) {
   return (
     <div className="header">
       <div className="header__logo-container">
-        <img src={logoHeader} alt="wtwr° Logo" className="header__logo" />
+        <Link className="header__link" to="/">
+          <img src={logoHeader} alt="wtwr° Logo" className="header__logo" />
+        </Link>
         <p className="header__date-And-Location">
           {currentDate}, {weatherData.city}
         </p>
@@ -31,18 +34,20 @@ function Header({ handleAddClick, weatherData, handleToggleSwitchChange }) {
       <div
         className={`header__user-container header__user-container_mod ${activeContainer}`}
       >
-        <ToggleSwitch handleToggleSwitchChange={handleToggleSwitchChange} />
+        <ToggleSwitch />
         <button
-          onClick={handleAddClick}
+          onClick={onAddClick}
           type="button"
           className="header__add-clothes-button"
         >
           + Add Clothes
         </button>
-        <div className="header__user-info">
-          <p className="header__user-name">Brandon Dooley</p>
-          <img src={avatarHeader} alt="" className="header__user-avatar" />
-        </div>
+        <Link to="/profile" className="header__link">
+          <div className="header__user-info">
+            <p className="header__user-name">Brandon Dooley</p>
+            <img src={avatarHeader} alt="" className="header__user-avatar" />
+          </div>
+        </Link>
         <button
           onClick={handleClosePanel}
           type="button"

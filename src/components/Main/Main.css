@@ -1,16 +1,26 @@
+.main {
+  width: 100%;
+}
+.cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .cards__text {
   font-weight: 700;
   font-size: 20px;
   line-height: 24.8px;
+  width: 100%;
 }
 
 .cards__list {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, 328px);
+  margin: 0;
   padding: 0;
-  gap: 21px;
+  gap: 20px;
   list-style-type: none;
 }
 
@@ -20,9 +30,15 @@
   height: 0;
 }
 
-@media screen and (max-width: 627px) {
+@media screen and (max-width: 1111.5px) {
   .cards__list {
-    gap: 12px;
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 629px) {
+  .cards__list {
+    column-gap: 15px;
+    row-gap: 16px;
   }
   .main__randomize-button {
     background-color: black;
@@ -37,5 +53,10 @@
   }
   .main__randomize-text {
     color: white;
+  }
+}
+@media screen and (max-width: 395px) {
+  .cards__list {
+    justify-content: flex-start;
   }
 }

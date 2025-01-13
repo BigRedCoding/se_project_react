@@ -5,9 +5,9 @@
 
 .header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 32px 0 28px;
+  padding-bottom: 28px;
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
@@ -15,20 +15,26 @@
 
 .header__logo-container {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  gap: 24px;
 }
 
 .header__logo {
-  margin-right: 24px;
+  width: 89px;
+  height: 40px;
 }
 
 .header__date-And-Location {
   margin: 0;
+  padding: 0;
 }
 
 .header__user-container {
   display: flex;
-  margin: 0 20px 0 auto;
+}
+
+.header__panel-button {
+  position: absolute;
 }
 
 .header__user-info {
@@ -69,6 +75,14 @@
   border-radius: 10px;
 }
 
+.header__link {
+  text-decoration: none;
+  color: black;
+}
+.header__user-name {
+  text-wrap: none;
+}
+
 @media screen and (max-width: 627px) {
   .header {
     padding: 0;
@@ -79,9 +93,8 @@
   .header__logo-container {
     top: 0;
     position: relative;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 32px;
+    font: 16px;
+    gap: 12px;
     min-width: 200px;
   }
   .header__user-container {

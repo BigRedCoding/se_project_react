@@ -1,19 +1,24 @@
 import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
-import { defaultClothingItems } from "../../utils/constants.js";
 import ItemCard from "../ItemCard/ItemCard.jsx";
 import randomizeImage from "../../assets/randomizeImage.svg";
+import { useContext } from "react";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
 
-function Main({ weatherData, handleCardClick }) {
+export default function Main({ weatherData, onCardClick, clothingItems }) {
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+  const sortedItems = clothingItems.sort((a, b) => b._id - a._id);
+
   return (
     <main className="main">
       <WeatherCard weatherData={weatherData} />
       <section className="cards">
         <p className="cards__text">
-          Today is {weatherData.temp.F} °F / You may want to wear:
+          Today is {weatherData.temp[currentTemperatureUnit]}°
+          {currentTemperatureUnit} / You may want to wear:
         </p>
         <ul className="cards__list">
-          {defaultClothingItems
+          {sortedItems
             .filter((item) => {
               return item.weather === weatherData.type;
             })
@@ -22,7 +27,7 @@ function Main({ weatherData, handleCardClick }) {
                 <ItemCard
                   key={item._id}
                   item={item}
-                  onCardClick={handleCardClick}
+                  onCardClick={onCardClick}
                 />
               );
             })}
@@ -39,5 +44,3 @@ function Main({ weatherData, handleCardClick }) {
     </main>
   );
 }
-
-export default Main;

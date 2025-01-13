@@ -1,12 +1,17 @@
-export function useFormAndValidation(text1, text2, url) {
-  if (text1.length < 2 || text2.length < 2) {
+export function useFormAndValidation(name, urlText, isOptionSelected) {
+  if (name.length < 2 || urlText.length < 2) {
     return {
       isValid: false,
       message: "Text entries must be at least 2 characters long.",
     };
+  } else if (isOptionSelected === false) {
+    return {
+      isValid: false,
+      message: "Please select weather type.",
+    };
   }
   try {
-    new URL(url);
+    new URL(urlText);
   } catch (e) {
     return { isValid: false, message: "Please enter a valid URL." };
   }
