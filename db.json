@@ -101,24 +101,6 @@
       "name": "T-Shirt",
       "weather": "hot",
       "link": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
-    },
-    {
-      "name": "1111",
-      "link": "https://cdn3.pixelcut.app/7/20/uncrop_hero_bdf08a8ca6.jpg",
-      "weather": "cold",
-      "_id": "1737143588000"
-    },
-    {
-      "name": "1111",
-      "link": "https://cdn3.pixelcut.app/7/20/uncrop_hero_bdf08a8ca6.jpg",
-      "weather": "cold",
-      "_id": "1737143592000"
-    },
-    {
-      "name": "111",
-      "link": "https://cdn3.pixelcut.app/7/20/uncrop_hero_bdf08a8ca6.jpg",
-      "weather": "cold",
-      "_id": "1737143595000"
     }
   ]
 }

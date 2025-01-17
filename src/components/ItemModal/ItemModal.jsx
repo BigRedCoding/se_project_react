@@ -1,4 +1,5 @@
 import "./ItemModal.css";
+import AvatarImage from "../../assets/Avatar.svg";
 
 function ItemModal({
   onCloseClick,
@@ -8,10 +9,14 @@ function ItemModal({
   onSelectCard,
 }) {
   const triggerDelete = () => {
-    isOpened = false;
     onSelectCard(selectedCard);
     onDeleteClick();
   };
+
+  const imageUrl =
+    selectedCard?.link && typeof selectedCard?.link === "string"
+      ? selectedCard.link
+      : AvatarImage;
 
   return (
     <div className={`modal ${isOpened}`}>
@@ -22,8 +27,8 @@ function ItemModal({
           className="modal__close-preview"
         ></button>
         <img
-          src={selectedCard.link}
-          alt={selectedCard.name}
+          src={imageUrl}
+          alt={selectedCard?.name || "Default"}
           className="modal__image"
         />
         <div className="modal__footer">
