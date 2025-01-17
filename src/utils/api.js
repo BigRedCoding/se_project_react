@@ -1,6 +1,6 @@
 const baseUrl = "http://localhost:3001";
 
-function attemptGainResponse(res, retries, delay) {
+function attemptGainResponse(res, retries = 5, delay = 1000) {
   if (!res.ok && retries > 0) {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -23,7 +23,7 @@ function attemptReconnect(maxRetries = 10) {
 
   return new Promise((resolve, reject) => {
     const reconnectInterval = setInterval(() => {
-      fetch(`${baseUrl}/ping`)
+      fetch(`${baseUrl}/items`)
         .then((res) => {
           if (res.ok) {
             clearInterval(reconnectInterval);
@@ -71,11 +71,13 @@ export function addItems(item) {
     },
     body: JSON.stringify(item),
   })
-    .then((res) => attemptGainResponse(res, 5, 1000))
+    .then((res) => {
+      return attemptGainResponse(res);
+    })
     .then((data) => {
       return data;
     })
-    .catch(console.error);
+    .catch((res) => attemptGainResponse(res, 5, 1000));
 }
 
 export function deleteItem(itemId) {

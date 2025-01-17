@@ -16,6 +16,8 @@ import { addItems } from "../../utils/api.js";
 import { deleteItem } from "../../utils/api.js";
 import DeleteModal from "../DeleteModal/DeleteModal.jsx";
 
+let pacificTime;
+
 function App() {
   const [weatherData, setWeatherData] = useState({
     type: "",
@@ -50,14 +52,21 @@ function App() {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
+  function getPacificTimeNow() {
+    pacificTime = new Date().toLocaleString("en-US", {
+      timeZone: "America/Los_Angeles",
+    });
+    return new Date(pacificTime).getTime();
+  }
+
   const handleAddItemModalSubmit = ({ name, urlText, weatherType }) => {
-    const listLength = clothingItems.length;
+    const idUpdate = getPacificTimeNow();
 
     const newItem = {
       name,
       link: urlText,
       weather: weatherType,
-      _id: `${listLength}`,
+      _id: `${idUpdate}`,
     };
 
     setClothingItems((prevItems) => [newItem, ...prevItems]);
