@@ -1,7 +1,7 @@
 import "./AddItemModal.css";
 import { useState, useEffect } from "react";
 import { validateInputsData } from "../../utils/validation.jsx";
-import { useFormAndValidation } from "../Hooks/useFormAndValidation.js";
+import { useFormAndValidation } from "../Hooks/UseFormAndValidation.js";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 
 export default function AddItemModal({
