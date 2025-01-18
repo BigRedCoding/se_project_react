@@ -1,10 +1,14 @@
-export function useFormAndValidation(name, urlText, isOptionSelected) {
+export function validateInputsData(name, urlText, weatherType) {
+  name = name || "";
+  urlText = urlText || "";
+  weatherType = weatherType !== undefined ? weatherType : false;
+
   if (name.length < 2 || urlText.length < 2) {
     return {
       isValid: false,
       message: "Text entries must be at least 2 characters long.",
     };
-  } else if (isOptionSelected === false) {
+  } else if (weatherType === false) {
     return {
       isValid: false,
       message: "Please select weather type.",

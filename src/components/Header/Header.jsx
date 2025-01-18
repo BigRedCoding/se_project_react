@@ -45,7 +45,11 @@ function Header({ onAddClick, weatherData }) {
         <Link to="/profile" className="header__link">
           <div className="header__user-info">
             <p className="header__user-name">Brandon Dooley</p>
-            <img src={avatarHeader} alt="" className="header__user-avatar" />
+            <img
+              src={avatarHeader}
+              alt="avatar image"
+              className="header__user-avatar"
+            />
           </div>
         </Link>
         <button

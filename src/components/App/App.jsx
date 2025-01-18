@@ -68,9 +68,8 @@ function App() {
       weather: weatherType,
       _id: `${idUpdate}`,
     };
-
-    setClothingItems((prevItems) => [newItem, ...prevItems]);
     addItems(newItem)
+      .then(setClothingItems((prevItems) => [newItem, ...prevItems]))
       .then(() => {
         closeActiveModal();
       })
@@ -81,17 +80,14 @@ function App() {
     deleteItem(selectedCard._id)
       .then(() => {
         closeActiveModal();
-        setActiveModal();
       })
       .then(() => {
         setClothingItems((prevItems) =>
           prevItems.filter((item) => item._id !== selectedCard._id)
         );
       })
-      .catch(console.error)
-      .finally(() => {
-        setSelectCard("");
-      });
+      .then(setSelectCard(""))
+      .catch(console.error);
   };
 
   useEffect(() => {
@@ -111,6 +107,22 @@ function App() {
       })
       .catch(console.error);
   }, []);
+
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
 
   return (
     <div className="page">
