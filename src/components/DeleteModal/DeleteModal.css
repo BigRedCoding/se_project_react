@@ -1,6 +1,16 @@
 .modal__content-delete {
   width: 670px;
   height: 280px;
+  position: relative;
+}
+.modal__delete-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-image: url("../../assets/CloseGray.svg");
+  width: 20px;
+  height: 20px;
+  border: none;
 }
 
 .modal__delete-text-panel {

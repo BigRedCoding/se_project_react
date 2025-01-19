@@ -7,7 +7,7 @@ function DeleteModal({ onCloseClick, isOpened, onDeleteCard }) {
         <button
           onClick={onCloseClick}
           type="button"
-          className="modal__close-preview"
+          className="modal__delete-close"
         ></button>
         <div className="modal__delete-text-panel">
           <p className="modal__delete-text">
