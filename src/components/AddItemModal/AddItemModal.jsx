@@ -2,7 +2,6 @@ import "./AddItemModal.css";
 import { useState, useEffect } from "react";
 import { validateInputsData } from "../../utils/validation.jsx";
 import { UseFormAndValidation } from "../../Hooks/UseFormAndValidation.js";
-import { UseFormAndValidation } from "../../Hooks/UseFormAndValidation.js";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 
 export default function AddItemModal({
@@ -10,7 +9,6 @@ export default function AddItemModal({
   onAddItemModalSubmit,
   isOpened,
 }) {
-  const { values, handleChange, resetForm } = UseFormAndValidation();
   const { values, handleChange, resetForm } = UseFormAndValidation();
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitVisible, setIsSubmitVisible] = useState(false);
