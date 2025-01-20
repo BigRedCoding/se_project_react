@@ -69,8 +69,8 @@ function App() {
       _id: `${idUpdate}`,
     };
     addItems(newItem)
-      .then(setClothingItems((prevItems) => [newItem, ...prevItems]))
       .then(() => {
+        setClothingItems((prevItems) => [newItem, ...prevItems]);
         closeActiveModal();
       })
       .catch(console.error);
@@ -86,7 +86,7 @@ function App() {
           prevItems.filter((item) => item._id !== selectedCard._id)
         );
       })
-      .then(setSelectCard(""))
+      .then(setSelectCard({}))
       .catch(console.error);
   };
 

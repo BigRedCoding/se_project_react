@@ -1,7 +1,7 @@
 import "./AddItemModal.css";
 import { useState, useEffect } from "react";
 import { validateInputsData } from "../../utils/validation.jsx";
-import { UseFormAndValidation } from "../../Hooks/UseFormAndValidation.js";
+import { useFormAndValidation } from "../../Hooks/UseFormAndValidation.js";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 
 export default function AddItemModal({
@@ -9,7 +9,7 @@ export default function AddItemModal({
   onAddItemModalSubmit,
   isOpened,
 }) {
-  const { values, handleChange, resetForm } = UseFormAndValidation();
+  const { values, handleChange, resetForm } = useFormAndValidation();
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitVisible, setIsSubmitVisible] = useState(false);
 
@@ -83,6 +83,7 @@ export default function AddItemModal({
             type="radio"
             name="weatherType"
             value="hot"
+            id="hot"
             onChange={handleChange}
             checked={values.weatherType === "hot"}
           />
@@ -93,6 +94,7 @@ export default function AddItemModal({
             type="radio"
             name="weatherType"
             value="warm"
+            id="warm"
             onChange={handleChange}
             checked={values.weatherType === "warm"}
           />
@@ -103,6 +105,7 @@ export default function AddItemModal({
             type="radio"
             name="weatherType"
             value="cold"
+            id="cold"
             onChange={handleChange}
             checked={values.weatherType === "cold"}
           />
