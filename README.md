@@ -18,6 +18,8 @@
 
 ### This website is desployed on GitHub at the following link: [here](https://bigredcoding.github.io/se_project_react/)
 
+### I have recently updated this site to be reliant on a custom backend server I've created. In this project's "api.js", there is a variable called "baseUrl" and it is set to a local address that is targeted when the server is ran with the command "npm run dev." You can find this custom server at the following link: [here](https://github.com/BigRedCoding/se_project_express)
+
 ================================================================================================
 
 ### **`Video Demonstration:`**

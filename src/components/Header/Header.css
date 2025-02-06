@@ -31,6 +31,8 @@
 
 .header__user-container {
   display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
 .header__panel-button {
@@ -54,11 +56,20 @@
   line-height: 24.8px;
 }
 
+.header__user-avatar {
+  width: 40px;
+  height: 40px;
+}
+
 .header__add-clothes-button {
   background-color: rgba(0, 0, 0, 0);
   border: none;
-  margin: 0 20px 0 auto;
+  margin: 0 auto;
   font-weight: 700;
+  height: fit-content;
+  padding: 0;
+  margin: 0;
+  border-width: 0;
 }
 
 .header__panel-button {
@@ -69,6 +80,8 @@
   max-width: 44px;
   max-height: 44px;
   visibility: collapse;
+  width: 0;
+  height: 0;
   border: none;
   background-repeat: no-repeat;
   background-position: center;
@@ -81,6 +94,23 @@
 }
 .header__user-name {
   text-wrap: none;
+  padding: 0;
+  margin: 0;
+}
+.header__login-and-registration {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+}
+.header__registration-button,
+.header__login-button {
+  padding: 0;
+  margin: 0;
+  width: fit-content;
+  text-wrap-mode: nowrap;
+  background-color: transparent;
+  border: none;
 }
 
 @media screen and (max-width: 627px) {

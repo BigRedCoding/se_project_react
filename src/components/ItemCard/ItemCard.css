@@ -13,13 +13,20 @@
   margin: 0;
   padding: 0;
 }
+.card__header {
+  top: 15px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: fit-content;
+  align-items: center;
+}
 .card__name {
   padding: 2px 12px;
   border-radius: 4px;
   background-color: #ffffff;
   margin: 0;
-  position: absolute;
-  top: 15px;
   color: #00000099;
   font-size: 16px;
   line-height: 20px;
@@ -27,6 +34,20 @@
 
 .card__image {
   width: 100%;
+}
+
+.card__like-button {
+  width: 18px;
+  height: 15px;
+  border: none;
+  background-image: url("../../assets/Heart.svg");
+  background-size: contain;
+  background-color: transparent;
+  background-repeat: no-repeat;
+}
+
+.card__like-button_is-liked {
+  background-image: url("../../assets/State_Liked.svg");
 }
 
 @media screen and (max-width: 768px) {

@@ -1,6 +1,27 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .sidebar__profile-info {
   display: flex;
   gap: 16px;
+  padding: 0 0 16px;
+}
+
+.sidebar__avatar {
+  width: 56px;
+  height: 56px;
+}
+
+.sidebar__button {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  line-height: 24.8px;
+  font-weight: 700;
+  text-align: left;
 }
 
 @media screen and (max-width: 582px) {

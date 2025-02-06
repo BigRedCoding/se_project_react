@@ -33,8 +33,7 @@
   padding: 20px 32px 0 32px;
   margin-bottom: 32px;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  justify-content: space-between;
   font-size: 20px;
   line-height: 24px;
   font-weight: 700;
@@ -48,12 +47,23 @@
   padding: 0;
   margin: 0;
 }
+
+.modal__footer-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 .modal__delete-item-button {
-  position: absolute;
-  right: 32px;
+  margin: 0;
+  padding: 0;
+  height: fit-content;
   background-color: transparent;
   border: none;
   color: #ff4d00;
+}
+
+.modal__delete-button_hidden {
+  visibility: hidden;
 }
 
 @media screen and (max-width: 627px) {

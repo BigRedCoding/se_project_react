@@ -1,7 +1,11 @@
 import "./AddItemModal.css";
 import { useState, useEffect } from "react";
-import { validateInputsData } from "../../utils/validation.jsx";
-import { useFormAndValidation } from "../../Hooks/UseFormAndValidation.js";
+import {
+  validateName,
+  validateUrl,
+  validateWeather,
+} from "../../utils/validation.jsx";
+
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 
 export default function AddItemModal({
@@ -9,34 +13,87 @@ export default function AddItemModal({
   onAddItemModalSubmit,
   isOpened,
 }) {
-  const { values, handleChange, resetForm } = useFormAndValidation();
+  const initialValues = {
+    name: "",
+    link: "",
+    weatherType: "",
+  };
+
+  const [values, setValues] = useState({
+    name: "",
+    link: "",
+    weatherType: "",
+  });
+
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitVisible, setIsSubmitVisible] = useState(false);
 
+  const [nameVisibility, setNameVisibility] = useState("");
+  const [urlVisibility, setUrlVisibility] = useState("");
+  const [weatherVisibility, setWeatherVisibility] = useState("");
+
+  const [validationNameMessage, setValidationNameMessage] = useState(
+    "Please enter in your preferred name"
+  );
+  const [validationUrlMessage, setValidationUrlMessage] = useState(
+    "Please enter in a valid URL for your x` image"
+  );
+  const [validationWeatherMessage, setValidationWeatherMessage] = useState(
+    "Please select a weather type"
+  );
+
+  const handleReset = () => {
+    setValues(initialValues);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
   useEffect(() => {
-    const name = values.name;
-    const urlText = values.urlText;
-    const weatherType = values.weatherType;
+    setErrorMessage("");
 
-    const validation = validateInputsData(name, urlText, weatherType);
+    const checkValidName = validateName(values.name);
+    const checkValidUrl = validateUrl(values.link);
+    const checkValidWeather = validateWeather(values.weatherType);
 
-    if (validation.isValid) {
+    if (values.name !== initialValues.name) {
+      setNameVisibility(checkValidName.isValid ? "isHidden" : "");
+      setValidationNameMessage(checkValidName.message);
+    }
+
+    if (values.link !== initialValues.link) {
+      setUrlVisibility(checkValidUrl.isValid ? "isHidden" : "");
+      setValidationUrlMessage(checkValidUrl.message);
+    }
+
+    if (values.weatherType !== initialValues.weatherType) {
+      setWeatherVisibility(checkValidWeather.isValid ? "isHidden" : "");
+      setValidationWeatherMessage(checkValidWeather.message);
+    }
+
+    if (
+      checkValidUrl.isValid &&
+      checkValidName.isValid &&
+      checkValidWeather.isValid
+    ) {
       setIsSubmitVisible(true);
-      setErrorMessage("");
-    } else {
-      setIsSubmitVisible(false);
-      setErrorMessage(validation.message);
     }
   }, [values]);
-
-  useEffect(() => {
-    resetForm();
-  }, [isOpened, resetForm]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     onAddItemModalSubmit(values);
+    handleReset();
   };
+
+  useEffect(() => {
+    handleReset();
+  }, [isOpened]);
 
   return (
     <ModalWithForm
@@ -47,31 +104,37 @@ export default function AddItemModal({
       onSubmit={handleSubmit}
       isOpened={isOpened}
     >
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="nameAddItem" className="modal__label">
         Name
         <input
           name="name"
           type="text"
           className="modal__input modal__input_name"
-          id="name"
+          id="nameAddItem"
           placeholder="Name"
           value={values.name || ""}
           onChange={handleChange}
           required
         />
+        <p className={`validation__name-message ${nameVisibility}`}>
+          {validationNameMessage}
+        </p>
       </label>
-      <label htmlFor="urlText" className="modal__label">
+      <label htmlFor="urlTextAddItem" className="modal__label">
         Image
         <input
-          name="urlText"
+          name="link"
           type="URL"
           className="modal__input modal__input_image"
-          id="urlText"
+          id="urlTextAddItem"
           placeholder="Image Url"
-          value={values.urlText || ""}
+          value={values.link || ""}
           onChange={handleChange}
           required
         />
+        <p className={`validation__url-message ${urlVisibility}`}>
+          {validationUrlMessage}
+        </p>
       </label>
       {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
       <fieldset className="modal__radio-buttons">
@@ -111,6 +174,9 @@ export default function AddItemModal({
           />
           Cold
         </label>
+        <p className={`validation__weather-message ${weatherVisibility}`}>
+          {validationWeatherMessage}
+        </p>
       </fieldset>
     </ModalWithForm>
   );
