@@ -88,7 +88,6 @@ export default function AddItemModal({
   const handleSubmit = (evt) => {
     evt.preventDefault();
     onAddItemModalSubmit(values);
-    handleReset();
   };
 
   useEffect(() => {

@@ -4,28 +4,31 @@ import ItemCard from "../ItemCard/ItemCard.jsx";
 import randomizeImage from "../../assets/randomizeImage.svg";
 import { useContext } from "react";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
+import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
-export default function Main({
-  weatherData,
-  onCardClick,
-  clothingItems,
-  onCardLike,
-}) {
+export default function Main({ onCardClick, onCardLike }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
-  const sortedItems = clothingItems.sort((a, b) => b._id - a._id);
+  const { clothingItems, weatherData } = useContext(CurrentUserContext);
 
-  const itemCards = [];
-  for (let i = sortedItems.length - 1; i > 0; i--) {
-    const item = sortedItems[i];
-    itemCards.push(
-      <ItemCard
-        key={i}
-        id={item._id}
-        item={item}
-        onCardClick={onCardClick}
-        onCardLike={onCardLike}
-      />
-    );
+  const sortedItems = clothingItems.filter(
+    (item) => item.weather === weatherData.type
+  );
+
+  let itemCards = [];
+
+  for (let i = 0; i < sortedItems.length; i++) {
+    if (itemCards.length !== sortedItems.length) {
+      const item = sortedItems[i];
+      itemCards.push(
+        <ItemCard
+          key={i}
+          id={item._id}
+          item={item}
+          onCardClick={onCardClick}
+          onCardLike={onCardLike}
+        />
+      );
+    }
   }
 
   return (

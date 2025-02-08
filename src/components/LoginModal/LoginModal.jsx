@@ -163,7 +163,7 @@ export default function LoginModal({
           className={`modal__input ${
             isModalModified ? "password__modal_mod" : ""
           }`}
-          id="passwordLogin"
+          id="password"
           placeholder="Password"
           value={values.password || ""}
           onChange={handleChange}

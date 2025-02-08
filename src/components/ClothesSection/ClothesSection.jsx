@@ -1,6 +1,6 @@
 import "./ClothesSection.css";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import ItemCard from "../ItemCard/ItemCard.jsx";
 
@@ -19,7 +19,8 @@ export default function ClothesSection({
     : [];
 
   const itemCards = [];
-  for (let i = filteredItems.length - 1; i > 0; i--) {
+
+  for (let i = filteredItems.length - 1; i >= 0; i--) {
     const item = filteredItems[i];
     itemCards.push(
       <ItemCard

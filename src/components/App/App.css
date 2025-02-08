@@ -9,7 +9,7 @@ body {
 .page {
   font-family: "CabinetGrotesk", Arial, Helvetica, sans-serif;
   margin: 32px 40px 24px 40px;
-  width: 1360px;
+  max-width: 1360px;
 }
 
 .page__content {
@@ -58,11 +58,6 @@ button:hover {
 
 input:hover {
   cursor: pointer;
-}
-@media screen and (max-width: 1359px) {
-  .page {
-    width: fit-content;
-  }
 }
 
 @media screen and (max-width: 629px) {

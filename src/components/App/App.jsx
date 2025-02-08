@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import { coordinates, APIKey } from "../../utils/constants.js";
 import "./App.css";
@@ -17,7 +17,7 @@ import LoginModal from "../LoginModal/LoginModal.jsx";
 import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
-import ProtectedRoute from "../../utils/ProtectedRoute.jsx";
+import ProtectedRoute from "../ProtectedRoute.jsx";
 
 import {
   getItems,
@@ -25,6 +25,7 @@ import {
   deleteItem,
   handleLoginUser,
   handleSignupUser,
+  handleUpdateProfile,
   addCardLike,
   removeCardLike,
 } from "../../utils/api.js";
@@ -42,9 +43,11 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState({});
 
   const [isPasswordValid, setIsPasswordValid] = useState(true);
+
+  const [updateDOM, handleUpdateDOM] = useState(false);
 
   const handleAddClick = () => {
     setActiveModal("garment");
@@ -57,6 +60,22 @@ function App() {
   const closeActiveModal = () => {
     setActiveModal("");
   };
+
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
 
   const handleCardClick = (card) => {
     setActiveModal("preview");
@@ -106,11 +125,9 @@ function App() {
       likes: [],
     };
     addItems(newItem)
-      .then(() => {
-        handleSetClothingItems();
-      })
-      .then(() => {
-        setClothingItems((prevItems) => [newItem, ...prevItems]);
+      .then((data) => {
+        setClothingItems((prevItems) => [data, ...prevItems]);
+        handleUpdateDOM(!updateDOM);
         closeActiveModal();
       })
       .catch(console.error);
@@ -120,14 +137,13 @@ function App() {
     const cardId = selectedCard._id;
     deleteItem(cardId)
       .then(() => {
-        closeActiveModal();
-      })
-      .then(() => {
         setClothingItems((prevItems) =>
           prevItems.filter((item) => item._id !== cardId)
         );
+        setSelectCard({});
+        closeActiveModal();
+        handleUpdateDOM(!updateDOM);
       })
-      .then(setSelectCard({}))
       .catch(console.error);
   };
 
@@ -141,13 +157,29 @@ function App() {
     if (!isLiked) {
       addCardLike(id, token)
         .then(() => {
-          handleSetClothingItems();
+          console.log(userData.userId);
+          setClothingItems((cards) =>
+            cards.map((item) =>
+              item._id === id
+                ? { ...item, likes: [...item.likes, userData.userId] }
+                : item
+            )
+          );
         })
         .catch((err) => console.log("Error adding like:", err));
     } else {
       removeCardLike(id, token)
         .then(() => {
-          handleSetClothingItems();
+          setClothingItems((cards) =>
+            cards.map((item) =>
+              item._id === id
+                ? {
+                    ...item,
+                    likes: item.likes.filter((id) => id !== userData.userId),
+                  }
+                : item
+            )
+          );
         })
         .catch((err) => console.log("Error removing like:", err));
     }
@@ -166,6 +198,13 @@ function App() {
     setUserData(null);
   };
 
+  const updateUserInfo = (values) => {
+    let userData = JSON.parse(localStorage.getItem("userData"));
+    userData.userName = values.name;
+    userData.userAvatar = values.urlText;
+    localStorage.setItem("userData", JSON.stringify(userData));
+  };
+
   const updateContext = () => {
     const token = localStorage.getItem("jwt");
     const storedUserData = JSON.parse(localStorage.getItem("userData"));
@@ -179,16 +218,40 @@ function App() {
     }
   };
 
+  const handleUpdateProfileInfo = (values) => {
+    handleUpdateProfile(values)
+      .then(() => {
+        updateUserInfo(values);
+        updateContext();
+      })
+      .then(() => {
+        closeActiveModal();
+      })
+      .catch((error) => {
+        console.error("Profile update failed:", error);
+      });
+  };
   useEffect(() => {
     handleSetClothingItems();
     handleSetWeather();
     updateContext();
+    handleUpdateDOM(!updateDOM);
   }, []);
 
+  useEffect(() => {
+    handleUpdateDOM(!updateDOM);
+  }, [weatherData]);
   return (
     <div className="page">
       <CurrentUserContext.Provider
-        value={{ isLoggedIn, userData, isPasswordValid }}
+        value={{
+          isLoggedIn,
+          userData,
+          isPasswordValid,
+          clothingItems,
+          weatherData,
+          updateDOM,
+        }}
       >
         <CurrentTemperatureUnitContext.Provider
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -198,17 +261,16 @@ function App() {
               onAddClick={handleAddClick}
               onLoginClick={handleLoginClick}
               onRegistrationClick={handleRegistrationClick}
-              weatherData={weatherData}
             />
             <Routes>
               <Route
                 path="/"
                 element={
                   <Main
-                    weatherData={weatherData}
-                    onCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    onCardClick={handleCardClick}
                     onCardLike={handleCardLike}
+                    weatherData={weatherData}
                   />
                 }
               />
@@ -269,7 +331,7 @@ function App() {
           <EditProfileModal
             onCloseClick={closeActiveModal}
             isOpened={activeModal === "editprofile" && "modal_opened"}
-            updateContext={updateContext}
+            onUpdateProfileInfo={handleUpdateProfileInfo}
           />
         </CurrentTemperatureUnitContext.Provider>
       </CurrentUserContext.Provider>

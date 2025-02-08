@@ -11,7 +11,7 @@ import { handleUpdateProfile } from "../../utils/api.js";
 export default function EditProfileModal({
   onCloseClick,
   isOpened,
-  updateContext,
+  onUpdateProfileInfo,
 }) {
   const { userData } = useContext(CurrentUserContext);
 
@@ -55,21 +55,9 @@ export default function EditProfileModal({
     resetForm();
   }, [isOpened]);
 
-  const updateUserInfo = () => {
-    let userData = JSON.parse(localStorage.getItem("userData"));
-
-    userData.userName = values.name;
-    userData.userAvatar = values.urlText;
-
-    localStorage.setItem("userData", JSON.stringify(userData));
-  };
-
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    handleUpdateProfile(values, token);
-    updateUserInfo();
-    updateContext();
-    onCloseClick();
+    onUpdateProfileInfo(values);
   };
 
   const handleOpenSignup = () => {

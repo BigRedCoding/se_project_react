@@ -2,13 +2,19 @@ export const baseUrl = "http://localhost:3001";
 
 import AvatarImage from "../assets/Avatar.svg";
 
-export function getItems() {
+export function responseCheck(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return res.json().then((error) => {
+    return Promise.reject(`Error: ${error.message}`);
+  });
+}
+
+export async function getItems() {
   return fetch(`${baseUrl}/items`)
     .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(`Error: ${res.status}`);
-      }
-      return res.json();
+      return responseCheck(res);
     })
     .catch((error) => {
       console.error(error);
@@ -18,14 +24,7 @@ export function getItems() {
       };
     });
 }
-
-// export function getItems() {
-//   return fetch(`${baseUrl}/items`).then((res) => {
-//     return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-//   });
-// }
-
-export function addItems(item) {
+export async function addItems(item) {
   const token = localStorage.getItem("jwt");
   return fetch(`${baseUrl}/items`, {
     method: "POST",
@@ -36,18 +35,15 @@ export function addItems(item) {
     body: JSON.stringify(item),
   })
     .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(`Error: ${res.status}`);
-      }
-      return res.json();
+      return responseCheck(res);
     })
     .catch((error) => {
       console.error(error);
-      return Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${error.message}`);
     });
 }
 
-export function deleteItem(itemId) {
+export async function deleteItem(itemId) {
   const token = localStorage.getItem("jwt");
   return fetch(`${baseUrl}/items/${itemId}`, {
     method: "DELETE",
@@ -57,20 +53,18 @@ export function deleteItem(itemId) {
     },
   })
     .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(`Error: ${res.status}`);
-      }
+      return responseCheck(res);
     })
     .then((data) => {
       return data;
     })
     .catch((error) => {
       console.error(error);
-      return Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${error.message}`);
     });
 }
 
-export function handleLoginUser(userData) {
+export async function handleLoginUser(userData) {
   return fetch(`${baseUrl}/signin`, {
     method: "POST",
     headers: {
@@ -79,10 +73,7 @@ export function handleLoginUser(userData) {
     body: JSON.stringify(userData),
   })
     .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(`Error: ${res.status}`);
-      }
-      return res.json();
+      return responseCheck(res);
     })
     .then((data) => {
       console.log("Login successful");
@@ -97,11 +88,11 @@ export function handleLoginUser(userData) {
     })
     .catch((error) => {
       console.error(error);
-      return Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${error.message}`);
     });
 }
 
-export function handleSignupUser(userData) {
+export async function handleSignupUser(userData) {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
     headers: {
@@ -110,18 +101,17 @@ export function handleSignupUser(userData) {
     body: JSON.stringify(userData),
   })
     .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(`Error: ${res.status}`);
-      }
-      return res.json();
+      return responseCheck(res);
     })
     .catch((error) => {
       console.error(error);
-      return Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${error.message}`);
     });
 }
 
-export function handleUpdateProfile(userData, token) {
+export async function handleUpdateProfile(userData) {
+  const token = localStorage.getItem("jwt");
+
   fetch(`${baseUrl}/profile`, {
     method: "PATCH",
     headers: {
@@ -131,20 +121,17 @@ export function handleUpdateProfile(userData, token) {
     body: JSON.stringify(userData),
   })
     .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(`Error: ${res.status}`);
-      }
-      return res.json();
+      return responseCheck(res);
     })
     .then(() => {
       console.log("Updated profile successfully.");
     })
     .catch((error) => {
       console.error(error);
-      return Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${error.message}`);
     });
 }
-export function addCardLike(id, token) {
+export async function addCardLike(id, token) {
   return fetch(`${baseUrl}/items/${id}/likes`, {
     method: "PUT",
     headers: {
@@ -153,21 +140,18 @@ export function addCardLike(id, token) {
     },
   })
     .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(`Error: ${res.status}`);
-      }
-      return res.json();
+      return responseCheck(res);
     })
     .then((data) => {
       return data;
     })
     .catch((error) => {
       console.error(error);
-      return Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${error.message}`);
     });
 }
 
-export const removeCardLike = (id, token) => {
+export async function removeCardLike(id, token) {
   return fetch(`${baseUrl}/items/${id}/likes`, {
     method: "DELETE",
     headers: {
@@ -175,13 +159,10 @@ export const removeCardLike = (id, token) => {
     },
   })
     .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(`Error: ${res.status}`);
-      }
-      return res.json();
+      return responseCheck(res);
     })
-    .catch((err) => {
+    .catch((error) => {
       console.error(error);
-      return Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${error.message}`);
     });
-};
+}

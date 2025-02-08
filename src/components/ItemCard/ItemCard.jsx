@@ -5,9 +5,10 @@ import LikeImage from "../../assets/Heart.svg";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ItemCard({ id, item, onCardClick, onCardLike }) {
-  const { isLoggedIn, userData } = useContext(CurrentUserContext);
+  const { isLoggedIn, userData, clothingItems } =
+    useContext(CurrentUserContext);
 
-  const isLiked = item.likes.some((id) => id === userData?.userId);
+  let isLiked = item.likes.some((id) => id === userData?.userId);
   const cardKey = id;
 
   const [isCurrentlyLiked, setIsCurrentlyLiked] = useState(isLiked || false);
@@ -19,9 +20,20 @@ function ItemCard({ id, item, onCardClick, onCardLike }) {
   const itemLikeButtonClassName = `card__like-button_is-liked`;
 
   const handleCardLikeState = () => {
-    setIsCurrentlyLiked(!isCurrentlyLiked);
     onCardLike(cardKey, isCurrentlyLiked);
   };
+
+  useEffect(() => {
+    const currentItem = clothingItems.find(
+      (clothingItem) => clothingItem._id === id
+    );
+    if (currentItem) {
+      isLiked = currentItem.likes.some(
+        (cardKey) => cardKey === userData?.userId
+      );
+      setIsCurrentlyLiked(isLiked);
+    }
+  }, [clothingItems]);
 
   return (
     <li className="card">
@@ -31,7 +43,7 @@ function ItemCard({ id, item, onCardClick, onCardLike }) {
           <button
             type="button"
             className={`card__like-button ${
-              isLiked ? itemLikeButtonClassName : ""
+              isCurrentlyLiked ? itemLikeButtonClassName : ""
             }`}
             src={LikeImage}
             alt="Like image"

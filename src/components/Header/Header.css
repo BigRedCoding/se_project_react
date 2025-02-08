@@ -5,7 +5,7 @@
 
 .header {
   display: flex;
-  justify-content: space-between;
+  position: relative;
   align-items: center;
   padding-bottom: 28px;
   font-weight: 700;
@@ -30,6 +30,9 @@
 }
 
 .header__user-container {
+  position: absolute;
+  right: 0;
+  top: 0;
   display: flex;
   gap: 20px;
   align-items: center;
@@ -112,6 +115,33 @@
   background-color: transparent;
   border: none;
 }
+.header__mobile-icon {
+  visibility: collapse;
+  width: 0;
+  height: 0;
+}
+
+@media screen and (max-width: 900px) {
+  .header__user-name {
+    position: absolute;
+    visibility: collapse;
+    width: 0;
+    height: 0;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .header {
+    height: fit-content;
+  }
+  .header__user-container {
+    margin-left: auto;
+    position: relative;
+    right: 0;
+    flex-direction: column;
+    flex-flow: column-reverse;
+  }
+}
 
 @media screen and (max-width: 627px) {
   .header {
@@ -171,5 +201,16 @@
     min-width: 21px;
     min-height: 21px;
     z-index: 2;
+  }
+  .header__mobile-icon {
+    visibility: visible;
+    width: fit-content;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
+
+  .container__visible-mod {
+    visibility: visible;
   }
 }
