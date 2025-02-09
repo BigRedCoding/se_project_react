@@ -126,7 +126,8 @@ function App() {
     };
     addItems(newItem)
       .then((data) => {
-        setClothingItems((prevItems) => [data, ...prevItems]);
+        const item = data.data;
+        setClothingItems((prevItems) => [item, ...prevItems]);
         handleUpdateDOM(!updateDOM);
         closeActiveModal();
       })
