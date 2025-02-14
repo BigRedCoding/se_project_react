@@ -1,6 +1,6 @@
 const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://api.bdwtwr.justlearning.net/"
+    ? "https://api.bdwtwr.justlearning.net"
     : "http://localhost:3001";
 
 import AvatarImage from "../assets/Avatar.svg";
