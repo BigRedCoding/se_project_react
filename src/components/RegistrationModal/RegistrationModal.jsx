@@ -1,13 +1,8 @@
 import "./RegistrationModal.css";
-import { useState, useEffect } from "react";
-import {
-  validateName,
-  validateEmail,
-  validatePassword,
-  validateUrl,
-} from "../../utils/validation.jsx";
 
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
+
+import { useFormAndValidation } from "../../Hooks/UseFormAndValidation.js";
 
 export default function RegistrationModal({
   onSignUpUser,
@@ -25,94 +20,8 @@ export default function RegistrationModal({
     avatar: "",
   };
 
-  const [values, setValues] = useState({
-    email: "",
-    password: "",
-    name: "",
-    avatar: "",
-  });
-
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isSubmitVisible, setIsSubmitVisible] = useState(false);
-
-  const [emailVisibility, setEmailVisibility] = useState("");
-  const [passwordVisibility, setPasswordVisibility] = useState("");
-  const [nameVisibility, setNameVisibility] = useState("");
-  const [urlVisibility, setUrlVisibility] = useState("");
-
-  const [validationEmailMessage, setValidationEmailMessage] = useState(
-    "Please enter your email"
-  );
-  const [validationPasswordMessage, setValidationPasswordMessage] = useState(
-    "Please enter you password"
-  );
-  const [validationNameMessage, setValidationNameMessage] = useState(
-    "Please enter in your preferred name"
-  );
-  const [validationUrlMessage, setValidationUrlMessage] = useState(
-    "Please enter in a valid URL for your Avatar image"
-  );
-
-  const isSecondButtonVisible = true;
-
-  const handleReset = () => {
-    setValues(initialValues);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
-  useEffect(() => {
-    setErrorMessage("");
-
-    const checkValidEmail = validateEmail(values.email);
-    const checkValidPassword = validatePassword(values.password);
-    const checkValidName = validateName(values.name);
-    const checkValidUrl = validateUrl(values.avatar);
-
-    if (values.email !== initialValues.email) {
-      setEmailVisibility(checkValidEmail.isValid ? "isHidden" : "");
-      setValidationEmailMessage(checkValidEmail.message);
-    }
-
-    if (values.password !== initialValues.password) {
-      setPasswordVisibility(checkValidPassword.isValid ? "isHidden" : "");
-      setValidationPasswordMessage(checkValidPassword.message);
-    }
-
-    if (values.name !== initialValues.name) {
-      setNameVisibility(checkValidName.isValid ? "isHidden" : "");
-      setValidationNameMessage(checkValidName.message);
-    }
-
-    if (values.avatar !== initialValues.avatar) {
-      setUrlVisibility(checkValidUrl.isValid ? "isHidden" : "");
-      setValidationUrlMessage(checkValidUrl.message);
-    }
-
-    setEmailVisibility(checkValidEmail.isValid ? "isHidden" : "");
-    setPasswordVisibility(checkValidPassword.isValid ? "isHidden" : "");
-    setNameVisibility(checkValidName.isValid ? "isHidden" : "");
-    setUrlVisibility(checkValidUrl.isValid ? "isHidden" : "");
-
-    setValidationEmailMessage(checkValidEmail.message);
-    setValidationPasswordMessage(checkValidPassword.message);
-    setValidationNameMessage(checkValidName.message);
-    setValidationUrlMessage(checkValidUrl.message);
-
-    if (
-      checkValidEmail.isValid &&
-      checkValidPassword.isValid &&
-      checkValidName.isValid
-    ) {
-      setIsSubmitVisible(true);
-    }
-  }, [values]);
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation(initialValues);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -125,7 +34,7 @@ export default function RegistrationModal({
         onLoginUser({ email: userEmail, password: userPassword })
           .then(() => {
             onLoginResponseInfo();
-            handleReset();
+            resetForm();
             onCloseClick();
             onIsPasswordValid(true);
           })
@@ -145,10 +54,10 @@ export default function RegistrationModal({
     <ModalWithForm
       title="Sign Up"
       buttonText="Sign Up"
-      isSecondButtonVisible={isSecondButtonVisible}
+      isSecondButtonVisible={true}
       buttonText2="Log In"
       onCloseClick={onCloseClick}
-      isSubmitVisible={isSubmitVisible}
+      isSubmitVisible={isValid}
       onSubmit={handleSubmit}
       isOpened={isOpened}
       onOpenSignup={handleOpenSignin}
@@ -165,9 +74,7 @@ export default function RegistrationModal({
           onChange={handleChange}
           required
         />
-        <p className={`validation__email-message ${emailVisibility}`}>
-          {validationEmailMessage}
-        </p>
+        <p className={`validation__email-message`}>{errors?.email}</p>
       </label>
       <label htmlFor="passwordRegistration" className="modal__label">
         Password*
@@ -181,9 +88,7 @@ export default function RegistrationModal({
           onChange={handleChange}
           required
         />
-        <p className={`validation__password-message ${passwordVisibility}`}>
-          {validationPasswordMessage}
-        </p>
+        <p className={`validation__password-message`}>{errors?.password}</p>
       </label>
       <label htmlFor="nameRegistration" className="modal__label">
         Name*
@@ -197,9 +102,7 @@ export default function RegistrationModal({
           onChange={handleChange}
           required
         />
-        <p className={`validation__name-message ${nameVisibility}`}>
-          {validationNameMessage}
-        </p>
+        <p className={`validation__name-message`}>{errors?.name}</p>
       </label>
       <label htmlFor="imageUrlRegistration" className="modal__label">
         Avatar URL*
@@ -212,11 +115,8 @@ export default function RegistrationModal({
           value={values.avatar || ""}
           onChange={handleChange}
         />
-        <p className={`validation__url-message ${urlVisibility}`}>
-          {validationUrlMessage}
-        </p>
+        <p className={`validation__url-message`}>{errors?.link}</p>
       </label>
-      {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
     </ModalWithForm>
   );
 }

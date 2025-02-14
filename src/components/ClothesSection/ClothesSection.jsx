@@ -20,18 +20,33 @@ export default function ClothesSection({
 
   const itemCards = [];
 
-  for (let i = filteredItems.length - 1; i >= 0; i--) {
-    const item = filteredItems[i];
-    itemCards.push(
-      <ItemCard
-        key={i}
-        id={item._id}
-        item={item}
-        onCardClick={onCardClick}
-        onCardLike={onCardLike}
-      />
-    );
+  for (let i = 0; i < filteredItems.length; i++) {
+    if (itemCards.length !== filteredItems.length) {
+      const item = filteredItems[i];
+      itemCards.push(
+        <ItemCard
+          key={i}
+          id={item._id}
+          item={item}
+          onCardClick={onCardClick}
+          onCardLike={onCardLike}
+        />
+      );
+    }
   }
+
+  // for (let i = filteredItems.length - 1; i >= 0; i--) {
+  //   const item = filteredItems[i];
+  //   itemCards.push(
+  //     <ItemCard
+  //       key={i}
+  //       id={item._id}
+  //       item={item}
+  //       onCardClick={onCardClick}
+  //       onCardLike={onCardLike}
+  //     />
+  //   );
+  // }
 
   return (
     <div className="clothes">

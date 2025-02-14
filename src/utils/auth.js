@@ -1,7 +1,9 @@
-import { baseUrl, attemptGainResponse } from "../utils/api.js";
-const auth = require("../../../se_project_express/middlewares/auth.js");
-//write further code to check DB while signup
-//write further code to check DB while signin
+import { attemptGainResponse } from "../utils/api.js";
+
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.bdwtwr.justlearning.net/"
+    : "http://localhost:3001";
 
 export function signup(item) {
   return fetch(`${baseUrl}/items`, {

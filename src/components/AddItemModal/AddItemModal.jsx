@@ -1,12 +1,9 @@
 import "./AddItemModal.css";
-import { useState, useEffect } from "react";
-import {
-  validateName,
-  validateUrl,
-  validateWeather,
-} from "../../utils/validation.jsx";
+import { useEffect } from "react";
 
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
+
+import { useFormAndValidation } from "../../Hooks/UseFormAndValidation.js";
 
 export default function AddItemModal({
   onCloseClick,
@@ -19,71 +16,8 @@ export default function AddItemModal({
     weatherType: "",
   };
 
-  const [values, setValues] = useState({
-    name: "",
-    link: "",
-    weatherType: "",
-  });
-
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isSubmitVisible, setIsSubmitVisible] = useState(false);
-
-  const [nameVisibility, setNameVisibility] = useState("");
-  const [urlVisibility, setUrlVisibility] = useState("");
-  const [weatherVisibility, setWeatherVisibility] = useState("");
-
-  const [validationNameMessage, setValidationNameMessage] = useState(
-    "Please enter in your preferred name"
-  );
-  const [validationUrlMessage, setValidationUrlMessage] = useState(
-    "Please enter in a valid URL for your x` image"
-  );
-  const [validationWeatherMessage, setValidationWeatherMessage] = useState(
-    "Please select a weather type"
-  );
-
-  const handleReset = () => {
-    setValues(initialValues);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
-  useEffect(() => {
-    setErrorMessage("");
-
-    const checkValidName = validateName(values.name);
-    const checkValidUrl = validateUrl(values.link);
-    const checkValidWeather = validateWeather(values.weatherType);
-
-    if (values.name !== initialValues.name) {
-      setNameVisibility(checkValidName.isValid ? "isHidden" : "");
-      setValidationNameMessage(checkValidName.message);
-    }
-
-    if (values.link !== initialValues.link) {
-      setUrlVisibility(checkValidUrl.isValid ? "isHidden" : "");
-      setValidationUrlMessage(checkValidUrl.message);
-    }
-
-    if (values.weatherType !== initialValues.weatherType) {
-      setWeatherVisibility(checkValidWeather.isValid ? "isHidden" : "");
-      setValidationWeatherMessage(checkValidWeather.message);
-    }
-
-    if (
-      checkValidUrl.isValid &&
-      checkValidName.isValid &&
-      checkValidWeather.isValid
-    ) {
-      setIsSubmitVisible(true);
-    }
-  }, [values]);
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation(initialValues);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -91,7 +25,7 @@ export default function AddItemModal({
   };
 
   useEffect(() => {
-    handleReset();
+    resetForm();
   }, [isOpened]);
 
   return (
@@ -99,7 +33,7 @@ export default function AddItemModal({
       title="New garment"
       buttonText="Add garment"
       onCloseClick={onCloseClick}
-      isSubmitVisible={isSubmitVisible}
+      isSubmitVisible={isValid}
       onSubmit={handleSubmit}
       isOpened={isOpened}
     >
@@ -115,9 +49,7 @@ export default function AddItemModal({
           onChange={handleChange}
           required
         />
-        <p className={`validation__name-message ${nameVisibility}`}>
-          {validationNameMessage}
-        </p>
+        <p className={`validation__name-message`}>{errors?.name}</p>
       </label>
       <label htmlFor="urlTextAddItem" className="modal__label">
         Image
@@ -131,12 +63,13 @@ export default function AddItemModal({
           onChange={handleChange}
           required
         />
-        <p className={`validation__url-message ${urlVisibility}`}>
-          {validationUrlMessage}
-        </p>
+        <p className={`validation__url-message`}>{errors?.link}</p>
       </label>
-      {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
-      <fieldset className="modal__radio-buttons">
+      <fieldset
+        className="modal__radio-buttons"
+        onChange={handleChange}
+        required
+      >
         <legend className="modal__radio-legend">
           Select the weather type:
         </legend>
@@ -146,8 +79,9 @@ export default function AddItemModal({
             name="weatherType"
             value="hot"
             id="hot"
-            onChange={handleChange}
             checked={values.weatherType === "hot"}
+            onChange={handleChange}
+            required
           />
           Hot
         </label>
@@ -157,8 +91,9 @@ export default function AddItemModal({
             name="weatherType"
             value="warm"
             id="warm"
-            onChange={handleChange}
             checked={values.weatherType === "warm"}
+            onChange={handleChange}
+            required
           />
           Warm
         </label>
@@ -168,14 +103,13 @@ export default function AddItemModal({
             name="weatherType"
             value="cold"
             id="cold"
-            onChange={handleChange}
             checked={values.weatherType === "cold"}
+            onChange={handleChange}
+            required
           />
           Cold
         </label>
-        <p className={`validation__weather-message ${weatherVisibility}`}>
-          {validationWeatherMessage}
-        </p>
+        <p className={`validation__weather-message`}>{errors?.weatherType}</p>
       </fieldset>
     </ModalWithForm>
   );

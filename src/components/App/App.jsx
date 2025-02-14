@@ -126,7 +126,8 @@ function App() {
     };
     addItems(newItem)
       .then((data) => {
-        setClothingItems((prevItems) => [data, ...prevItems]);
+        const item = data.data;
+        setClothingItems((prevItems) => [item, ...prevItems]);
         handleUpdateDOM(!updateDOM);
         closeActiveModal();
       })
@@ -157,7 +158,6 @@ function App() {
     if (!isLiked) {
       addCardLike(id, token)
         .then(() => {
-          console.log(userData.userId);
           setClothingItems((cards) =>
             cards.map((item) =>
               item._id === id
@@ -201,7 +201,7 @@ function App() {
   const updateUserInfo = (values) => {
     let userData = JSON.parse(localStorage.getItem("userData"));
     userData.userName = values.name;
-    userData.userAvatar = values.urlText;
+    userData.userAvatar = values.avatar;
     localStorage.setItem("userData", JSON.stringify(userData));
   };
 

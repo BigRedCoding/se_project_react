@@ -1,12 +1,12 @@
 import "./EditProfileModal.css";
 
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
-import { handleUpdateProfile } from "../../utils/api.js";
+import { useFormAndValidation } from "../../Hooks/UseFormAndValidation.js";
 
 export default function EditProfileModal({
   onCloseClick,
@@ -15,41 +15,13 @@ export default function EditProfileModal({
 }) {
   const { userData } = useContext(CurrentUserContext);
 
-  const token = localStorage.getItem("jwt");
-
   const initialValues = {
     name: userData?.userName || "",
-    urlText: userData?.userAvatar || "",
+    avatar: userData?.userAvatar || "",
   };
 
-  const [values, setValues] = useState({
-    name: "",
-    urlText: "",
-  });
-
-  const [isSubmitVisible, setIsSubmitVisible] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
-  useEffect(() => {
-    if (
-      values.name !== initialValues.name ||
-      values.urlText !== initialValues.urlText
-    ) {
-      setIsSubmitVisible(true);
-    }
-  }, [values]);
-
-  const resetForm = () => {
-    setValues(initialValues);
-    setIsSubmitVisible(false);
-  };
+  const { values, handleChange, errors, isValid, resetForm, setValues } =
+    useFormAndValidation(initialValues);
 
   useEffect(() => {
     resetForm();
@@ -62,15 +34,18 @@ export default function EditProfileModal({
 
   const handleOpenSignup = () => {
     isSignInOpen();
-    onCloseClick();
   };
+
+  useEffect(() => {
+    setValues(initialValues);
+  }, [isOpened]);
 
   return (
     <ModalWithForm
       title="Change profile data"
       buttonText="Save changes "
       onCloseClick={onCloseClick}
-      isSubmitVisible={isSubmitVisible}
+      isSubmitVisible={isValid}
       onSubmit={handleSubmit}
       isOpened={isOpened}
       onOpenSignup={handleOpenSignup}
@@ -87,19 +62,21 @@ export default function EditProfileModal({
           onChange={handleChange}
           required
         />
+        <p className={`validation__name-message`}>{errors?.name}</p>
       </label>
 
       <label htmlFor="imageUrlEditProfile" className="modal__label">
         Avatar URL*
         <input
-          name="urlText"
+          name="avatar"
           type="URL"
           className="modal__input modal__input_image"
           id="imageUrlEditProfile"
           placeholder="Avatar URL"
-          value={values.urlText || ""}
+          value={values.avatar || ""}
           onChange={handleChange}
         />
+        <p className={`validation__url-message`}>{errors?.link}</p>
       </label>
     </ModalWithForm>
   );
