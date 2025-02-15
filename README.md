@@ -4,26 +4,28 @@
 
 ### **`DESCRIPTION:`**
 
-### This is the beginning of a weather app designed to suggest clothing items based on the current weather! The functionality so far is limited, but users will eventually be able to add their own clothing and have their own account.
+### This is frontend of the WTWR weather application designed by Brandon Dooley. Users can find a summary of their local weather information and get recommendations as to what items they should wear. Users can create their own accounts, add/delete their own items, view other user's items, and like whichever items they want. This site is mobile friendly.
 
 ================================================================================================
 
 ### **`TECHNIQUES AND TECHNOLOGIES:`**
 
-### This application was created using various languages including HTML, CSS, Javascript, and React.JS with an emphasis on React.JS as this project is to highlight its features. So far, the project references a [weather](https://openweathermap.org/) website to gather information based on the user's current location (something I added personally).
+### The frontend of this application was created using various languages and add-ons including HTML, CSS, Javascript, and React.JS. The backend was created utilizing Node.js, EspressJS, MongoDB, Nginx, and Ubuntu. The project references a [weather](https://openweathermap.org/) website to gather information based on the user's current location (something I added personally). The server is hosted on Google and the URL is a free public domain through[https://freedns.afraid.org/](https://freedns.afraid.org/).
 
 ================================================================================================
 
 ### **`DEPLOYMENT:`**
 
-### This website is desployed on GitHub at the following link: [here](https://bigredcoding.github.io/se_project_react/)
+### The website now is connected with a proper url at [https://www.bdwtwr.justlearning.net/](https://www.bdwtwr.justlearning.net/) or [http://www.bdwtwr.justlearning.net/](http://www.bdwtwr.justlearning.net/).
 
-### I have recently updated this site to be reliant on a custom backend server I've created. In this project's "api.js", there is a variable called "baseUrl" and it is set to a local address that is targeted when the server is ran with the command "npm run dev." You can find this custom server at the following link: [here](https://github.com/BigRedCoding/se_project_express)
+### The frontend repository is [here](https://bigredcoding.github.io/se_project_react/).
+
+### The backend repository is [here](https://github.com/BigRedCoding/se_project_express).
 
 ================================================================================================
 
 ### **`Video Demonstration:`**
 
-### For the moment, I will wait on this until the project is complete.
+### For the moment, I will wait on this until the project is accepted as complete by the reviewer.
 
 ================================================================================================

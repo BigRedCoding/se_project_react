@@ -36,6 +36,7 @@
   display: flex;
   gap: 20px;
   align-items: center;
+  height: 40px;
 }
 
 .header__panel-button {
@@ -202,6 +203,11 @@
     min-height: 21px;
     z-index: 2;
   }
+  .header__log-reg-mobile {
+    height: 40px;
+    display: flex;
+    gap: 20px;
+  }
   .header__mobile-icon {
     visibility: visible;
     width: fit-content;
@@ -212,5 +218,12 @@
 
   .container__visible-mod {
     visibility: visible;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header__logo-container {
+    align-items: start;
+    flex-direction: column;
   }
 }

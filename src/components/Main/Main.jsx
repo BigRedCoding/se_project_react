@@ -15,7 +15,6 @@ export default function Main({ onCardClick, onCardLike }) {
   );
 
   let itemCards = [];
-
   for (let i = 0; i < sortedItems.length; i++) {
     if (itemCards.length !== sortedItems.length) {
       const item = sortedItems[i];
@@ -41,14 +40,6 @@ export default function Main({ onCardClick, onCardLike }) {
         </p>
         <ul className="cards__list">{itemCards}</ul>
       </section>
-      <button type="button" className="main__randomize-button">
-        <img
-          src={randomizeImage}
-          alt="Randomize Image"
-          className="main__randomize-image"
-        />
-        <p className="main__randomize-text">Randomize</p>
-      </button>
     </main>
   );
 }

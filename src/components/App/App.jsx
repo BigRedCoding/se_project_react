@@ -267,10 +267,8 @@ function App() {
                 path="/"
                 element={
                   <Main
-                    clothingItems={clothingItems}
                     onCardClick={handleCardClick}
                     onCardLike={handleCardLike}
-                    weatherData={weatherData}
                   />
                 }
               />
