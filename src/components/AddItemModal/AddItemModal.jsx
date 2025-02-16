@@ -12,7 +12,7 @@ export default function AddItemModal({
 }) {
   const initialValues = {
     name: "",
-    link: "",
+    imageUrl: "",
     weatherType: "",
   };
 
@@ -54,16 +54,16 @@ export default function AddItemModal({
       <label htmlFor="urlTextAddItem" className="modal__label">
         Image
         <input
-          name="link"
+          name="imageUrl"
           type="URL"
           className="modal__input modal__input_image"
           id="urlTextAddItem"
           placeholder="Image Url"
-          value={values.link || ""}
+          value={values.imageUrl || ""}
           onChange={handleChange}
           required
         />
-        <p className={`validation__url-message`}>{errors?.link}</p>
+        <p className={`validation__url-message`}>{errors?.imageUrl}</p>
       </label>
       <fieldset
         className="modal__radio-buttons"

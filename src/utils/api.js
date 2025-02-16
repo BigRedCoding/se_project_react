@@ -22,7 +22,7 @@ export async function getItems() {
     .catch((error) => {
       console.error(error);
       return {
-        link: AvatarImage,
+        imageUrl: AvatarImage,
         message: "Network error or invalid URL, using fallback image.",
       };
     });

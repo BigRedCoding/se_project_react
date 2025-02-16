@@ -14,8 +14,8 @@ function ItemModal({ selectedCard, onCloseClick, isOpened, onDeleteClick }) {
   };
 
   const imageUrl =
-    selectedCard?.link && typeof selectedCard?.link === "string"
-      ? selectedCard.link
+    selectedCard?.imageUrl && typeof selectedCard?.imageUrl === "string"
+      ? selectedCard.imageUrl
       : AvatarImage;
 
   const isOwn = selectedCard.owner === userData?.userId || "";

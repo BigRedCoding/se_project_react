@@ -116,11 +116,11 @@ function App() {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
-  const handleAddItemModalSubmit = ({ name, link, weatherType }) => {
+  const handleAddItemModalSubmit = ({ name, imageUrl, weatherType }) => {
     const newItem = {
       name: name,
       weather: weatherType,
-      link: link,
+      imageUrl: imageUrl,
       owner: userData.userId,
       likes: [],
     };

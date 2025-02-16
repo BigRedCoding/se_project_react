@@ -8,7 +8,7 @@ export function useFormAndValidation(initialValues) {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    const mappedName = name === "avatar" ? "link" : name;
+    const mappedName = name === "avatar" || name === "imageUrl" ? "link" : name;
 
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [mappedName]: e.target.validationMessage });

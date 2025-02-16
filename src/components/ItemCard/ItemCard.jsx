@@ -55,7 +55,7 @@ function ItemCard({ id, item, onCardClick, onCardLike }) {
       </div>
       <img
         onClick={handleCardClick}
-        src={item?.link || AvatarImage}
+        src={item?.imageUrl || AvatarImage}
         alt={item?.name || "default"}
         className="card__image"
         onError={(e) => {
