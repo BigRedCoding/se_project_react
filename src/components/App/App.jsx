@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 
 import { coordinates, APIKey } from "../../utils/constants.js";
 import "./App.css";
@@ -231,6 +231,32 @@ function App() {
         console.error("Profile update failed:", error);
       });
   };
+
+  const styles = {
+    container: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100vh",
+      textAlign: "center",
+    },
+    message: {
+      fontSize: "2rem",
+      color: "red",
+    },
+    button: {
+      marginTop: "20px",
+      padding: "10px 20px",
+      fontSize: "1rem",
+      backgroundColor: "#4CAF50",
+      color: "white",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
+    },
+  };
+
   useEffect(() => {
     handleSetClothingItems();
     handleSetWeather();
@@ -287,7 +313,20 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route
+                path="/*"
+                element={
+                  <div style={styles.container}>
+                    {console.error("No routes matched the location!")}
+
+                    <h2 style={styles.message}>404 - Page Not Found</h2>
+
+                    <Link to="/">
+                      <button style={styles.button}>Go to Home</button>
+                    </Link>
+                  </div>
+                }
+              />
             </Routes>
             <Footer />
           </div>
