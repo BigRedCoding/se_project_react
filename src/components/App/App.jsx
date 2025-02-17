@@ -314,11 +314,9 @@ function App() {
                 }
               />
               <Route
-                path="/*"
+                path="*"
                 element={
                   <div style={styles.container}>
-                    {console.error("No routes matched the location!")}
-
                     <h2 style={styles.message}>404 - Page Not Found</h2>
 
                     <Link to="/">
