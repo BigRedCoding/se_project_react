@@ -5,7 +5,7 @@ const baseUrl =
 
 import AvatarImage from "../assets/Avatar.svg";
 
-export function responseCheck(res) {
+function responseCheck(res) {
   if (res.ok) {
     return res.json();
   }
@@ -108,14 +108,14 @@ export async function handleSignupUser(userData) {
     })
     .catch((error) => {
       console.error(error);
-      return Promise.reject(`Error: ${error.message}`);
+      return Promise.reject(error);
     });
 }
 
 export async function handleUpdateProfile(userData) {
   const token = localStorage.getItem("jwt");
 
-  fetch(`${baseUrl}/profile`, {
+  fetch(`${baseUrl}/users/me`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -134,6 +134,7 @@ export async function handleUpdateProfile(userData) {
       return Promise.reject(`Error: ${error.message}`);
     });
 }
+
 export async function addCardLike(id, token) {
   return fetch(`${baseUrl}/items/${id}/likes`, {
     method: "PUT",

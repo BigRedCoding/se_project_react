@@ -4,6 +4,8 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 
 import { useFormAndValidation } from "../../Hooks/UseFormAndValidation.js";
 
+import { useState } from "react";
+
 export default function RegistrationModal({
   onSignUpUser,
   onCloseClick,
@@ -22,6 +24,8 @@ export default function RegistrationModal({
 
   const { values, handleChange, errors, isValid, resetForm } =
     useFormAndValidation(initialValues);
+
+  const [secondaryError, setSecondaryError] = useState("");
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -43,7 +47,24 @@ export default function RegistrationModal({
             onIsPasswordValid(false);
           });
       })
-      .catch((error) => console.error("Registration failed", error));
+      .catch((error) => {
+        console.log(error);
+        if (error) {
+          if (error === "Error: Email is already taken") {
+            setSecondaryError(
+              "The email is already taken. Please use a different email."
+            );
+
+            setTimeout(() => {
+              setSecondaryError("");
+            }, 3000);
+          } else {
+            console.error("Registration failed:", error);
+          }
+        } else {
+          console.error("Registration failed:", error);
+        }
+      });
   };
 
   const handleOpenSignin = () => {
@@ -74,7 +95,12 @@ export default function RegistrationModal({
           onChange={handleChange}
           required
         />
-        <p className={`validation__email-message`}>{errors?.email}</p>
+        <p className="validation__email-message">
+          {errors?.email && <span>{errors.email}</span>}
+          {secondaryError && secondaryError !== "" && (
+            <span>{secondaryError}</span>
+          )}
+        </p>
       </label>
       <label htmlFor="passwordRegistration" className="modal__label">
         Password*

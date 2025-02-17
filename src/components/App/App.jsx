@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 
 import { coordinates, APIKey } from "../../utils/constants.js";
 import "./App.css";
@@ -48,6 +48,8 @@ function App() {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   const [updateDOM, handleUpdateDOM] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleAddClick = () => {
     setActiveModal("garment");
@@ -121,8 +123,6 @@ function App() {
       name: name,
       weather: weatherType,
       imageUrl: imageUrl,
-      owner: userData.userId,
-      likes: [],
     };
     addItems(newItem)
       .then((data) => {
@@ -196,6 +196,8 @@ function App() {
 
     setIsLoggedIn(false);
     setUserData(null);
+
+    navigate("/");
   };
 
   const updateUserInfo = (values) => {
