@@ -43,7 +43,7 @@ export default function RegistrationModal({
             onIsPasswordValid(true);
           })
           .catch((error) => {
-            setErrorMessage("Login failed", error);
+            alert("Login failed", error);
             onIsPasswordValid(false);
           });
       })
