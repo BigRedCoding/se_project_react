@@ -29,6 +29,7 @@ export default function EditProfileModal({
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+
     onUpdateProfileInfo(values);
   };
 
