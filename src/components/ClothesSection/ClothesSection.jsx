@@ -35,19 +35,6 @@ export default function ClothesSection({
     }
   }
 
-  // for (let i = filteredItems.length - 1; i >= 0; i--) {
-  //   const item = filteredItems[i];
-  //   itemCards.push(
-  //     <ItemCard
-  //       key={i}
-  //       id={item._id}
-  //       item={item}
-  //       onCardClick={onCardClick}
-  //       onCardLike={onCardLike}
-  //     />
-  //   );
-  // }
-
   return (
     <div className="clothes">
       <div className="clothes__header">
